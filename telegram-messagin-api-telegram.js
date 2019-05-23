@@ -13,10 +13,6 @@ client.getWebhookInfo().catch(error => {
   console.log(error.request); // HTTP request
   console.log(error.response); // HTTP response
 
-
-
-
-
 });
 
 
