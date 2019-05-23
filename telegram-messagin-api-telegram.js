@@ -68,6 +68,15 @@ client.getChatMembersCount(CHAT_ID).then(count => {
   client.sendDocument(CHAT_ID, 'http://www.executivaipb.com.br/arquivos/confissao_de_westminster.pdf')
 
 
+ client
+  .getUpdates({
+    limit: 10,
+  })
+  .then(updates => {
+    console.log(updates);
+
+   });
+
 //client.editMessageLiveLocation(
 //  {
 //   latitude: 30,
@@ -101,14 +110,7 @@ client.getChatMembersCount(CHAT_ID).then(count => {
 //});
 
 
-client
-  .getUpdates({
-    limit: 10,
-  })
-  .then(updates => {
-    console.log(updates);
 
-   });
 
   
  
