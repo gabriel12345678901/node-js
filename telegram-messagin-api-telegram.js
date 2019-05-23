@@ -60,16 +60,23 @@ console.log('maior que 18 boa noite')
 
 //fim da estrutura de saudação
 
+client.getChatMembersCount(CHAT_ID).then(count => {
+  console.log(count); // '6'
+});
 
-client.editMessageLiveLocation(
-  {
-    latitude: 30,
-    longitude: 45,
-  },
-  {
-    message_id: 5,
-  }
-);
+  // send file
+  client.sendDocument(CHAT_ID, 'http://www.executivaipb.com.br/arquivos/confissao_de_westminster.pdf')
+
+
+//client.editMessageLiveLocation(
+//  {
+//   latitude: 30,
+//    longitude: 45,
+//  },
+//  {
+//    message_id: 5,
+//  }
+//);
 
 //client
 //  .getFile('UtAqweADGTo4Gz8cZAeR-ouu4XBx78EeqRkABPL_pM4A1UpI0koD65K2')
