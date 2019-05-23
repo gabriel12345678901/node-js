@@ -20,11 +20,50 @@ client.getWebhookInfo().catch(error => {
 });
 
 
-//ENVIAR MENSAGEM
-client.sendMessage(CHAT_ID, 'hi aaaagora', {
-  disable_web_page_preview: true,
-  disable_notification: true,
-});
+//inicio da estrutura de saudação 
+
+
+if(hora<14){
+  client.sendMessage(CHAT_ID, 'Boa noite', {
+    disable_web_page_preview: true,
+    disable_notification: true,
+    
+  });
+console.log('menor que 14 bom dia')
+}
+
+
+if(hora >= 14){
+  client.sendMessage(CHAT_ID, 'Boa tarde', {
+    disable_web_page_preview: true,
+    disable_notification: true,
+    
+  });
+console.log('maior ou igual a 14 boa tarde')
+}
+
+
+if(hora>18){
+  client.sendMessage(CHAT_ID, 'Boa noite', {
+    disable_web_page_preview: true,
+    disable_notification: true,
+    
+  });
+console.log('maior que 18 boa noite')
+}
+
+//else{
+//  client.sendMessage(CHAT_ID, 'verificar', {
+//  disable_web_page_preview: true,
+//  disable_notification: true,
+ 
+//  });
+//   console.log('verificar')
+//}
+
+
+//fim da estrutura de saudação
+
 
 client.editMessageLiveLocation(
   {
