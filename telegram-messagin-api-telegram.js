@@ -1,10 +1,22 @@
 
 //https://www.npmjs.com/package/messaging-api-telegram
+var fs = require('fs');
+//buscando data
+var date = new Date(); 
+var dia = date.getDate();
+var mes = date.getMonth();
+var ano = date.getYear();
+var hora = date.getHours();
+
+
+console.log(hora)
 
 const { TelegramClient } = require('messaging-api-telegram');
 const client = TelegramClient.connect('863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI');
 const CHAT_IDD = TelegramClient.connect('229336404');
 const CHAT_ID = '229336404';
+const USER_ID = '@magdielpaulo';
+const token = '863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI';
 
 client.getWebhookInfo().catch(error => {
   console.log(error); //s formatted error message
@@ -19,7 +31,7 @@ client.getWebhookInfo().catch(error => {
 //inicio da estrutura de saudação 
 
 
-if(hora<14){
+if(hora<12){
   client.sendMessage(CHAT_ID, 'Boa noite', {
     disable_web_page_preview: true,
     disable_notification: true,
@@ -29,7 +41,7 @@ console.log('menor que 14 bom dia')
 }
 
 
-if(hora >= 14){
+if(hora >= 12){
   client.sendMessage(CHAT_ID, 'Boa tarde', {
     disable_web_page_preview: true,
     disable_notification: true,
@@ -64,22 +76,90 @@ client.getChatMembersCount(CHAT_ID).then(count => {
   console.log(count); // '6'
 });
 
+
+
+ 
   // send file
   client.sendDocument(CHAT_ID, 'http://www.executivaipb.com.br/arquivos/confissao_de_westminster.pdf')
+  client.sendDocument(CHAT_ID, 'https://www.opendrive.com/wp-content/uploads/guides/OpenDrive_API_guide.pdf')
+
+  //client.sendMediaGroup(CHAT_ID, media)
+  //client.sendPhoto(CHAT_ID, 'cats.png')
+
+  
+
+  fs.appendFile('file.txt', 'data to append', (err) => {
+  if (err) throw err;
+  console.log('The "data to append" was appended to file!');
+});
+
+   //client
+  //.getFile('UtAqweADGTo4Gz8cZAeR-ouu4XBx78EeqRkABPL_pM4A1UpI0koD65K2')
+  //.then(file => {
+  //  console.log(file);
+   
+  //});
+
+ 
+//client
+//  .getUpdates({
+//    limit: 10,
+//  })
+//  .then(updates => {
+//    console.log(updates);
+
+//   });
+
+ 
 
 
- client
-  .getUpdates({
-    limit: 10,
-  })
-  .then(updates => {
-    console.log(updates);
+ //client.sendDocument(CHAT_ID, 'https://example.com/doc.gif', {
+ // caption: 'gooooooodDocument',
+ // disable_notification: true,
+//});
 
-   });
+
+
+
+ //client.replyWithDocument({ source: 'C:\\Users\\tr642633\\Music\\epicas\\audio.mp3' })
+
+
+
+//Telegram.sendAudio(CHAT_ID, 'C:\\Users\\tr642633\\Music\\epicas\\audio.mp3',{
+//  console.log('enviando audio');
+//});
+
+
+
+
+//client.sendPhoto(CHAT_ID, 'https://serede.com.br/static/media/logo_serede.e2168082.svg', {
+//  caption: 'gooooooodPhoto',
+//  disable_notification: true,
+//});
+
+
+
+
+
+
+
+//client.getChatMember(CHAT_ID, USER_ID).then(member => {
+//  console.log(member);
+  
+//});
+
+
+
+//client.sendGame(CHAT_ID, 'Mario Bros.', {
+//  disable_notification: true,
+//});
+
+
+
 
 //client.editMessageLiveLocation(
 //  {
-//   latitude: 30,
+//    latitude: 30,
 //    longitude: 45,
 //  },
 //  {
@@ -104,13 +184,20 @@ client.getChatMembersCount(CHAT_ID).then(count => {
 
 
 
-//client.sendDocument(CHAT_ID, 'https://www.google.com.br/url?sa=i&source=images&cd=&ved=2ahUKEwiN9s7Sk63iAhU7GbkGHY5UAAwQjRx6BAgBEAU&url=https%3A%2F%2Fserede.com.br%2F&psig=AOvVaw0UMidlq95WTUQI98UiVFVk&ust=1558546324405911', {
+//client.sendDocument(CHAT_ID, '1558546324405911', {
 //  caption: 'gooooooodDocument',
 //  disable_notification: true,
 //});
 
 
+//client
+//  .getUpdates({
+//    limit: 10,
+//  })
+//  .then(updates => {
+//    console.log(updates);
 
+//   });
 
   
  
