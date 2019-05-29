@@ -101,12 +101,13 @@ bot.on('text', (ctx) => {
   
 
 
-  //ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0037_Miscelaneas_Aplicados_Click_20"+a+"_0"+m+"_"+d+".xlsx"' });
-  //ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_Antenas_Aplicadas_Baixa_20"+a+"_0"+m+"_"+d+".csv' });
-  //ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_Decoders_Aplicados_Baixa_20"+a+"_0"+m+"_"+d+".csv' });
-  //ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_LNBF_Aplicados_Baixa_20"+a+"_0"+m+"_"+d+".csv' });
-  //ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0040_Materiais_Aplicados_Click_DTH_20"+a+"_0"+m+"_"+d+".xlsx' });
-  //ctx.replyWithPhoto({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0040_Materiais_Aplicados_Click_DTH_20"+a+"_0"+m+"_"+d+".xlsx' });
+  //dms
+  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0037_Miscelaneas_Aplicados_Click_20'+a+'_0'+m+'_'+d+'.xlsx' }); 
+  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_Antenas_Aplicadas_Baixa_20'+a+'_0'+m+'_'+d+'.csv' });
+  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_Decoders_Aplicados_Baixa_20'+a+'_0'+m+'_'+d+'.csv' });
+  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_LNBF_Aplicados_Baixa_20'+a+'_0'+m+'_'+d+'.csv' });
+  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0040_Materiais_Aplicados_Click_DTH_20'+a+'_0'+m+'_'+d+'.xlsx' });
+  //ctx.replyWithPhoto({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0040_Materiais_Aplicados_Click_DTH_20'+a+"_0'+m+'_'+d+'.xlsx' });
   
   
 });
