@@ -1,5 +1,5 @@
-//https://telegraf.js.org/#/?id=sendaudio
-//var fs = require('fs');
+//https://telegraf.js.org/
+
 //buscando data
 var date = new Date(); 
 var dia = date.getDate();
@@ -10,114 +10,43 @@ var d = dia -1
 var m = mes +1
 var a = ano -100
 
-
 const CHAT_ID = '229336404';
-//const USER_ID = '@magdielpaulo';
 const token = '863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI';
 
-//Messagin-api-telegram
-const { TelegramClient } = require('messaging-api-telegram');
-const client = TelegramClient.connect('863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI');
-
-
-const Telegram = require('telegraf/telegram')
-const telegram = new Telegram(token)
-
-//telegraf
+//API telegraf
 const Telegraf = require('telegraf')
 const bot = new Telegraf(token)
 
+//API telegram
+const Telegram = require('telegraf/telegram')
+const telegram = new Telegram(token)
 
+telegram.sendMessage(CHAT_ID, 'Diga olá ao robô para acordá-lo')
 
-
-//verifica erro
-client.getWebhookInfo().catch(error => {
-  console.log(error); //s formatted error message
-  console.log(error.stack); // error stack trace
-  console.log(error.config); // axios request config
-  console.log(error.request); // HTTP request
-  console.log(error.response); // HTTP response
-
-});
-
-
-
-//inicio da estrutura de saudação 
- //via messaging-api-telegram
-
-if(hora<12){
-  client.sendMessage(CHAT_ID, 'Boa noite, seguem arquivos:', {
-    disable_web_page_preview: true,
-    disable_notification: true,
-    
-  });
-//console.log('menor que 14 bom dia')
-}
-
-
-if(hora >= 12){
-  client.sendMessage(CHAT_ID, 'Boa tarde, seguem arquivos:', {
-    disable_web_page_preview: true,
-    disable_notification: true,
-    
-  });
-//console.log('maior ou igual a 14 boa tarde')
-}
-
-
-if(hora>17){
-  client.sendMessage(CHAT_ID, 'Boa noite, seguem arquivos:', {
-    disable_web_page_preview: true,
-    disable_notification: true,
-    
-  });
-//console.log('maior que 18 boa noite')
-}
-
-//else{
-//  client.sendMessage(CHAT_ID, 'verificar', {
-//  disable_web_page_preview: true,
-//  disable_notification: true,
- 
-//  });
-//   console.log('verificar')
-//}
-
-
-//fim da estrutura de saudação
-
-
-
-
-//enviando arquivo via telegraf
-bot.on('text', (ctx) => {
+bot.on('text',(ctx) => {
   console.log('entrou no bot');
   console.log('dia: '+d+' mes: '+m+' ano: '+a);
-  
 
-  //dms
+  ctx.reply('ola')
+  if(hora<12){ctx.reply('Bom dia, aguarde pois estou buscando os arquivos:')}
+  if(hora>=12){ctx.reply('Boa tarde, aguarde pois estou buscando os arquivos:')}
+  if(hora>17){ctx.reply('Boa noite, aguarde pois estou buscando os arquivos:')}
+  
+  //outros: força de trabalho, tecnicos click
+  
+  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\transferencia_arquivo\\FORCA_DE_TRABALHO.xlsm' });
+  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\transferencia_arquivo\\TecnicosdoClick.xlsx' });
+//dms
   ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0037_Miscelaneas_Aplicados_Click_20'+a+'_0'+m+'_'+d+'.xlsx' }); 
   ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_Antenas_Aplicadas_Baixa_20'+a+'_0'+m+'_'+d+'.csv' });
   ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_Decoders_Aplicados_Baixa_20'+a+'_0'+m+'_'+d+'.csv' });
   ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_LNBF_Aplicados_Baixa_20'+a+'_0'+m+'_'+d+'.csv' });
   ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0040_Materiais_Aplicados_Click_DTH_20'+a+'_0'+m+'_'+d+'.xlsx' });
   //ctx.replyWithPhoto({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0040_Materiais_Aplicados_Click_DTH_20'+a+"_0'+m+'_'+d+'.xlsx' });
-  
-  
+   
 });
-
-bot.launch();
-//console.log('depois do bot, antes do pdf html');
-
+bot.launch()
 
 //telegram.sendDocument(CHAT_ID, 'http://www.executivaipb.com.br/arquivos/confissao_de_westminster.pdf');
 //telegram.sendMediaGroup(CHAT_ID, media)
 
-client
-  .getUpdates({
-    limit: 10,
-  })
-  .then(updates => {
-    console.log(updates);
-
-   });
