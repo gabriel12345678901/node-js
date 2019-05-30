@@ -35,7 +35,7 @@ bot.on('text',(ctx) => {
   //outros: força de trabalho, tecnicos click
   
   ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\transferencia_arquivo\\FORCA_DE_TRABALHO.xlsm' });
-  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\transferencia_arquivo\\TecnicosdoClick.xlsx' });
+  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\transferencia_arquivo\\TecnicosdoClick_'+dia+'-0'+m+'-20'+a+'.xlsx' });
 //dms
   ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0037_Miscelaneas_Aplicados_Click_20'+a+'_0'+m+'_'+d+'.xlsx' }); 
   ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_Antenas_Aplicadas_Baixa_20'+a+'_0'+m+'_'+d+'.csv' });
