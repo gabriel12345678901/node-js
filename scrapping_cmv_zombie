@@ -1,0 +1,95 @@
+var assert = require('assert')
+var fs = require('fs');
+var Browser = require('zombie'); 
+browser = new Browser(); 
+
+browser.visit("http://portalom.cn.brasiltelecom.net.br/geosc/view/index/", function (err) {
+
+//esperar:   
+   Browser.waitDuration = '30s'
+   
+   browser.wait().then(function() {
+    return callback(null);
+   });
+
+
+if(err) console.log('Erro browser visit: '+err);
+  console.log('link inicial: '+browser.location.href);
+  //console.log( 'BROWSER.ASSERT: '+Browser.Assert.length)
+  console.log('QUANTIDADE CARACTERES PAGINA INICIAL: '+browser.text('body').length)
+ 
+
+//clica no link: 'controle modem velox', e vai para esta página
+browser.clickLink("Controle Modem Velox", function(body,err) {                  
+  if(err) console.log('Erro clickLink modem velox: '+err);
+  console.log("Clicou no link modem velox"); 
+  console.log('link atual apos clicar em modem velox: '+browser.location.href)
+  //console.log('BODY APLICAÇÃO CMV: '+browser.text('body'))
+  console.log('QUANTIDADE DE CARACTERES DE CMV: '+browser.text('body').length)
+  //console.log(browser.assert.element('ul'));//conta elementos
+  //console.log(browser.assert.elements('input',1));//conta elementos
+
+  
+  
+  
+  
+  //indo para a pagina aplicação de modem pela psr
+  browser.clickLink("Aplicação de modem pela PSR", function(err) {
+    if(err) console.log('Erro clicklink aplicação de modem pela psr: '+err);
+    console.log('link atual aplicação de modem psr: '+browser.url)
+    //console.log('BODY DE PSR: '+browser.text('body'))//carrega o body da pagina
+    console.log('QUANTIDADE DE CARACTERES DE PSR: '+browser.text('body').length)//conta os caracteres do body da pagina
+    
+    //testando select
+    console.log('option: '+browser.text('option'))//busca o conteudo das selects existentes na pagina
+    console.log('testando existencia da id uf: '+browser.html("#uf"));//testando se existe o id uf
+    
+    //seleciona item do select
+    browser.select('#uf','PR', function(err){
+      if(err) console.log('ERRO SELECT OPTION: '+err);
+
+      
+    })
+
+    
+    //browser.fill("#date_from", "xxx"); 
+    
+    
+    
+    //console.log(browser.assert.elements('input',1));//conta elementos
+     
+    //testando o botão consultar
+    browser.pressButton('Consultar', function(err) {                  
+     if(err) console.log('Erro botão consultar: '+err);
+     console.log('buscando id botão: '+browser.html("#aPost"));//testando se existe o id uf
+     console.log('link apos clicar no botão consultar: '+browser.location.href);
+
+    });
+
+   }); //fim pagina PSR
+   
+   
+  
+   //browser.back(function(err,status){
+   // if(err) console.log('Erro browserback: '+err);
+    //console.log('browser back, voltou: ');
+   // console.log('link atual apos browserback: '+browser.url)
+   // console.log('QUANTIDADE DE CARACTERES DE VOLTAR: '+browser.text('body').length)
+  
+   //})
+   
+   
+  
+//fs.writeFile("C:\\Users\\tr642633\\Documents\\desenvolvimento\\web.txt", td, 
+//  function(erro) { 
+//   if(erro) { 
+//    throw erro; 
+//   } 
+//  console.log("Arquivo web salvo");
+//});
+
+
+});
+
+
+});
