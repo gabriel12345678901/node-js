@@ -1,0 +1,13 @@
+//https://www.npmjs.com/package/download
+
+var dl = require('download')
+var fs = require('fs');
+
+
+//https://web.telegram.org/#/im?p=g304573850
+//http://geosc01.cn.brasiltelecom.net.br/controle_modem/repositorio/CMV_AC_20190613.csv
+
+dl('http://geosc01.cn.brasiltelecom.net.br/controle_modem/repositorio/CMV_AC_20190613.csv').then(data => {
+    
+    fs.writeFileSync('C:\\Users\\tr642633\\Documents\\desenvolvimento\\node\\dl.csv', data);
+});
