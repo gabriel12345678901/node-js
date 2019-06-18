@@ -1,0 +1,43 @@
+for(var i = 0; i < 10; i++){
+
+
+const nodemailer = require('nodemailer');
+const fs = require('fs');
+
+
+
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // true for 465, false for other ports
+  auth: {
+  	user: "rodrigogalvaopatriota@gmail.com",
+  	pass: "85657620925"
+  },
+  tls: { rejectUnauthorized: false }
+});
+
+
+fs.readFile("C:\\Users\\tr642633\\Documents\\rodrigo\\saldo volante decoder novo\\email.txt", function (err, data) {
+const mailOptions = {
+  from: 'rodrigogalvaopatriota@gmail.com',
+  to: 'rodrigo.patriota@seredesa.com.br',
+  subject: 'E-mail enviado usando Node!',
+  text: 'Bem f�cil, n�o?',
+  attachments: [{'filename': 'email.txt','content': data}]
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email enviado: ' + info.response);
+  }
+});
+
+});
+
+
+
+
+};
