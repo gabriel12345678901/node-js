@@ -1,3 +1,4 @@
+//https://api.telegram.org/bot863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI/getUpdates
 //https://telegraf.js.org/#/?id=sendaudio
 
 //buscando data
@@ -11,7 +12,7 @@ var m = mes +1
 
 var a = ano -100
 
-const CHAT_ID = '229336404';
+const CHAT_ID = '-226992946';
 const token = '863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI';
 
 //API telegraf
@@ -22,60 +23,41 @@ const bot = new Telegraf(token)
 const Telegram = require('telegraf/telegram')
 const telegram = new Telegram(token)
 
-telegram.sendMessage(CHAT_ID, 'O robô está dormindo, diga olá para acordá-lo')
 
-bot.on('text',(ctx) => {
-  console.log('entrou no bot');
-  console.log('dia: '+d+' mes: '+m+' ano: '+a);
+console.log('variavel d: '+d);
 
-  ctx.reply('ola')
-  if(hora<12){ctx.reply('Bom dia, só funciono se eu estiver conectado em rede de compartilhada de celular, aguarde pois estou buscando os arquivos:')}
-  if(hora>=12){ctx.reply('Boa tarde, só funciono se eu estiver conectado em rede de compartilhada de celular, aguarde pois estou buscando os arquivos:')}
-  if(hora>17){ctx.reply('Boa noite, só funciono se eu estiver conectado em rede de compartilhada de celular, aguarde pois estou buscando os arquivos:')}
-  
-  
-  if(d<10){
-  
-    //outros: força de trabalho, tecnicos click
-    
-    ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\transferencia_arquivo\\FORCA_DE_TRABALHO.xlsm' });
-    ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\transferencia_arquivo\\TecnicosdoClick_'+dia+'-0'+m+'-20'+a+'.xlsx' });
-    
-    
-  //dms
-    ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0037_Miscelaneas_Aplicados_Click_20'+a+'_0'+m+'_0'+d+'.xlsx' }); 
-    ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_Antenas_Aplicadas_Baixa_20'+a+'_0'+m+'_0'+d+'.csv' });
-    ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_Decoders_Aplicados_Baixa_20'+a+'_0'+m+'_0'+d+'.csv' });
-    ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_LNBF_Aplicados_Baixa_20'+a+'_0'+m+'_0'+d+'.csv' });
-    ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0040_Materiais_Aplicados_Click_DTH_20'+a+'_0'+m+'_0'+d+'.xlsx' });
-    //ctx.replyWithPhoto({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0040_Materiais_Aplicados_Click_DTH_20'+a+"_0'+m+'_0'+d+'.xlsx' });
-   
-    }
-  
-  
-  
-  
-  if(d>9){
-  
-  //outros: força de trabalho, tecnicos click
-  
-  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\transferencia_arquivo\\FORCA_DE_TRABALHO.xlsm' });
-  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\transferencia_arquivo\\TecnicosdoClick_'+dia+'-0'+m+'-20'+a+'.xlsx' });
-  
-  
+//saudação
+if(hora<12){telegram.sendMessage(CHAT_ID, 'Bom dia, enviando arquivos.')}
+if(hora>=12){telegram.sendMessage(CHAT_ID, 'Boa tarde, enviando arquivos.')}
+if(hora>17){telegram.sendMessage(CHAT_ID, 'Boa noite, enviando arquivos.')}
+
+
+if(d<10){
+console.log('entrou na condicional menor que 10: '+d);
+//outros: força de trabalho, tecnicos click
+telegram.sendDocument(CHAT_ID,{source:'C:\\Users\\tr642633\\Documents\\rodrigo\\transferencia_arquivo\\FORCA_DE_TRABALHO.xlsm'});
+telegram.sendDocument(CHAT_ID,{source:'C:\\Users\\tr642633\\Documents\\rodrigo\\transferencia_arquivo\\TecnicosdoClick_'+dia+'-0'+m+'-20'+a+'.xlsx'});
 //dms
-  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0037_Miscelaneas_Aplicados_Click_20'+a+'_0'+m+'_'+d+'.xlsx' }); 
-  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_Antenas_Aplicadas_Baixa_20'+a+'_0'+m+'_'+d+'.csv' });
-  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_Decoders_Aplicados_Baixa_20'+a+'_0'+m+'_'+d+'.csv' });
-  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_LNBF_Aplicados_Baixa_20'+a+'_0'+m+'_'+d+'.csv' });
-  ctx.replyWithVideo({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0040_Materiais_Aplicados_Click_DTH_20'+a+'_0'+m+'_'+d+'.xlsx' });
-  //ctx.replyWithPhoto({ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0040_Materiais_Aplicados_Click_DTH_20'+a+"_0'+m+'_0'+d+'.xlsx' });
- 
-  }
-});
-bot.launch()
+telegram.sendDocument(CHAT_ID,{source:'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0037_Miscelaneas_Aplicados_Click_20'+a+'_0'+m+'_0'+d+'.xlsx'});
+telegram.sendDocument(CHAT_ID,{source:'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_Decoders_Aplicados_Baixa_20'+a+'_0'+m+'_0'+d+'.csv'});
+telegram.sendDocument(CHAT_ID,{source:'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_LNBF_Aplicados_Baixa_20'+a+'_0'+m+'_0'+d+'.csv'});
+telegram.sendDocument(CHAT_ID,{source:'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0040_Materiais_Aplicados_Click_DTH_20'+a+'_0'+m+'_0'+d+'.xlsx'});
+}
+
+
+if(d>9){
+console.log('entrou na condicional maior que 9: '+d); 
+//outros: força de trabalho, tecnicos click
+ telegram.sendDocument(CHAT_ID,{ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\transferencia_arquivo\\FORCA_DE_TRABALHO.xlsm' });
+ telegram.sendDocument(CHAT_ID,{ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\transferencia_arquivo\\TecnicosdoClick_'+dia+'-0'+m+'-20'+a+'.xlsx' });
+//dms
+telegram.sendDocument(CHAT_ID,{ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0037_Miscelaneas_Aplicados_Click_20'+a+'_0'+m+'_'+d+'.xlsx' }); 
+telegram.sendDocument(CHAT_ID,{ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_Antenas_Aplicadas_Baixa_20'+a+'_0'+m+'_'+d+'.csv' });
+telegram.sendDocument(CHAT_ID,{ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_Decoders_Aplicados_Baixa_20'+a+'_0'+m+'_'+d+'.csv' });
+telegram.sendDocument(CHAT_ID,{ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0039_LNBF_Aplicados_Baixa_20'+a+'_0'+m+'_'+d+'.csv' });
+telegram.sendDocument(CHAT_ID,{ source: 'C:\\Users\\tr642633\\Documents\\rodrigo\\dms\\ftp\\DM0040_Materiais_Aplicados_Click_DTH_20'+a+'_0'+m+'_'+d+'.xlsx' });
+}
 
 //telegram.sendDocument(CHAT_ID, 'http://www.executivaipb.com.br/arquivos/confissao_de_westminster.pdf');
 //telegram.sendMediaGroup(CHAT_ID, media)
-
 
