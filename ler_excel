@@ -1,0 +1,26 @@
+var __dirname = 'C:\\Users\\tr642633\\Documents\\rodrigo\\SPOT\\logistica\\jonatam'
+var Excel = require('exceljs');
+var wb = new Excel.Workbook();
+var path = require('path');
+var filePath = path.resolve(__dirname,'whats.xlsx');
+
+
+
+wb.xlsx.readFile(filePath).then(function(){
+
+    var sh = wb.getWorksheet("base");//instacia objeto aba base
+    var cell = sh.getRow(1).getCell(3);
+    cell.value = new Date(1968, 5, 1);
+    console.log('valor inputado: '+sh.getRow(1).getCell(3).value);
+    //var fone = sh.getRow(5).getCell(1).value//captura linha 5 coluna 1
+    //console.log(fone);
+    console.log('número de linhas: '+sh.rowCount);
+    
+    
+    for (i = 1; i <= sh.rowCount; i++) {
+        console.log(sh.getRow(i).getCell(1).value);
+        console.log(sh.getRow(i).getCell(2).value);
+        
+       }
+    
+});
