@@ -1,6 +1,11 @@
 //https://www.npmjs.com/package/exceljs
 //https://chat-api.com/pt-br/
 //https://app.chat-api.com/instance/54414
+//https://stackoverflow.com/questions/28860728/reading-excel-file-using-node-jsvar __dirname = 'C:\\Users\\tr642633\\Documents\\rodrigo\\SPOT\\logistica\\jonatam'
+//https://www.npmjs.com/package/whatsapp-chapi
+
+
+
 
 //buscando data
 var date = new Date(); 
