@@ -1,0 +1,85 @@
+//https://www.npmjs.com/package/exceljs
+//https://chat-api.com/pt-br/
+//https://app.chat-api.com/instance/54414
+
+//buscando data
+var date = new Date(); 
+var dia = date.getDate();
+var mes = date.getMonth();
+var ano = date.getYear();
+var hora = date.getHours();
+var d = dia -1
+var m = mes +1
+var a = ano -100
+
+//variaveis whats
+
+//api url:  https://eu48.chat-api.com/instance54414/
+//token: k3hdf9e2cuezf38m
+//var express = require('express');
+//const Chapi = require('whatsapp-chapi');
+ 
+//const app = express();
+//const bot = new Chapi('5https://eu48.chat-api.com/instance54414', 'k3hdf9e2cuezf38m');
+//bot.signIn('041985162647');
+
+var request = require('request'); //bash: npm install request
+// URL for request POST /message
+var url = 'https://eu48.chat-api.com/instance54414/messages?token=k3hdf9e2cuezf38m';
+
+var data = {
+    phone: '41996623330', // Receivers phone
+    body: 'amo', // Сообщение
+};
+// Send a request
+request({
+    url: url,
+    method: "POST",
+    json: data
+});
+
+
+
+//variaveis excel
+var __dirname = 'C:\\Users\\tr642633\\Documents\\rodrigo\\SPOT\\logistica\\jonatam'
+var Excel = require('exceljs');
+var wb = new Excel.Workbook();
+var path = require('path');
+var filePath = path.resolve(__dirname,'whats.xlsx');
+
+
+
+wb.xlsx.readFile(filePath).then(function(){
+
+    var sh = wb.getWorksheet("base");//instacia objeto aba base
+    //var cell = sh.getRow(1).getCell(3);
+    //cell.value = new Date(1968, 5, 1);
+    //console.log('valor inputado: '+sh.getRow(1).getCell(3).value);
+    //var fone = sh.getRow(5).getCell(1).value//captura linha 5 coluna 1
+    //console.log(fone);
+    //console.log('número de linhas: '+sh.rowCount);
+    
+    
+    for (i = 1; i <= sh.rowCount; i++) {
+        console.log(sh.getRow(i).getCell(1).value);
+        console.log(sh.getRow(i).getCell(2).value);
+        //envio de mensagem pelo whats
+        //bot.sendMessage(sh.getRow(i).getCell(1).value,sh.getRow(i).getCell(2).value)
+
+        var data = {
+            phone:sh.getRow(i).getCell(1).value , // Receivers phone
+            body: sh.getRow(i).getCell(2).value, // Сообщение
+        };
+        // Send a request
+        request({
+            url: url,
+            method: "POST",
+            json: data
+        });
+        
+       }
+    
+});
+
+
+
