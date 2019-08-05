@@ -1,0 +1,53 @@
+
+
+var request = require("request");
+const rp = require('request-promise');
+const url = "http://localhost:3000/";
+var cheerio = require('cheerio');
+var Browser = require('zombie'); 
+browser = new Browser(); 
+
+rp(url)
+ 
+  .catch(function(err){
+    //handle error
+  
+
+})
+
+.then(function(html){
+   const $ = cheerio.load(html);
+   //success!
+   console.log(html);
+   //console.log($('div > a', html).length);
+   //console.log($('div > a', html));
+   //console.log($('.classe-1', html).text().trim());
+   //var valor = $(this).find('#link1').text().trim();
+   //console.log(valor)
+  
+  
+  //busca de valores por classe
+   $('div.div').each((i, element) => {
+      console.log('entrou no each')
+      const cheerioElement = $(element);
+
+      //variavel capta valor por classe
+      const classe_p = cheerioElement.find('.paragrafo');
+      const classe_a = cheerioElement.find('.link');
+      
+      //captura texto
+      const classeParagrafo = classe_p.text();
+      const classeLink = classe_a.text();
+
+      //imprime
+      console.log(classeParagrafo)
+      console.log(classeLink)
+
+   });
+  
+    
+   
+ 
+  });
+
+ 
