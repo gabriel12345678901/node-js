@@ -1,4 +1,4 @@
-//https://api.telegram.org/bot863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI/getUpdates
+//
 //https://telegraf.js.org/#/?id=sendaudio
 
 //buscando data
@@ -12,8 +12,8 @@ var m = mes +1
 
 var a = ano -100
 
-const CHAT_ID = '-226992946';
-const token = '863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI';
+const CHAT_ID = 'xxx';
+const token = 'xxx';
 
 //API telegraf
 const Telegraf = require('telegraf')
