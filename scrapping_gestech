@@ -1,0 +1,121 @@
+var cheerio = require('cheerio');
+var fs = require('fs');
+var Browser = require('zombie'); 
+browser = new Browser(); 
+
+
+
+
+browser.visit("https://oigestech.myteam.com.br/GesTech/", function (html) {
+console.log("acessou a url"); 
+console.log('title pag inicial: '+browser.text('title'))
+console.log('qtde cararcteres title pag inicial: '+browser.text('title').length)
+console.log('link localizado antes de logar: '+browser.text('a'))
+console.log('QUANTIDADE DE CARACTERES pag inicial: '+browser.text('body').length)
+
+//console.log(browser.text('h1'))
+//console.log(browser.text('font'))
+
+browser.fill("txtLogin", "tr642633"); 
+browser.fill("txtPassword", "tr642633");   
+
+//autenticacao 
+browser.pressButton("btnLogin", function(html) {
+  //const $ = cheerio.load(html);
+  //let $ = cheerio.load(html);
+  console.log('logou')
+
+  //verifica carregamento da pagina apos o login
+  //console.log(browser.text('title'))
+  //console.log(browser.text('h1'))
+  //console.log(browser.text('p'))                  
+  //console.log(browser.text('li')) 
+  //console.log(browser.text('a'))    
+  console.log('title pag inicial: '+browser.text('title'))
+  console.log('qtde cararcteres title pag inicial: '+browser.text('title').length)
+  console.log('QUANTIDADE DE CARACTERES apos login: '+browser.text('body').length)
+ 
+
+//const id = $('title').text();
+//console.log('title apos login, cheerio: '+id);
+
+ //const ul = $('div').filter('.titletop').attr('class');
+ //const ul =  $('#top').contents().length
+ //const ul = $('div[class=titletop]').html();
+ //const ul = $('body');
+ 
+//console.log('conteudo cherrio pos login: '+ul)
+
+browser.clickLink("Estoques", function(html) {
+  //const $ = cheerio.load(html);
+  console.log('entrou no click link estoques')
+  //const conteudo = $('body');
+  //browser.link()
+  //console.log('html: '+html)
+  //if(err) console.log('Erro clicklink Estoques: '+err);
+  //console.log('title apos licar em estoques: '+browser.text('title'))
+  console.log('title pag inicial: '+browser.text('title'))
+  console.log('qtde cararcteres title pag inicial: '+browser.text('title').length)
+  console.log('QUANTIDADE DE CARACTERES apos clicar no link estoques: '+browser.text('body').length)
+  //console.log('cheerio link estoques: '+$)
+  //console.log('html apos licar em estoques: '+browser.text('body'))
+ });
+ 
+ //const ul = $('.active').attr('id', 'menuid_b_0').html()
+ //$('input[type="text"]').val('test').html()
+ //const ul =  $('.active').parentsUntil('#menuid_b_0').length
+
+ //const ul =  $('#top').contents().length
+ //const ul = $('li[class=active]').html();
+ 
+ 
+ //busca de valores por classe
+ //$('#headerMenu').each((i,element) => {
+  //console.log('entrou no menu por id na div menu');
+  //const cheerioElement = $(element);
+  //variavel capta valor por classe
+  //const estoques = cheerioElement.find('#menuid_b_5');
+  //captura texto
+  //const classeParagrafo = estoques.text();
+  //imprime
+  //console.log(classeParagrafo);
+  //});
+ 
+ 
+ 
+ 
+ 
+  
+ 
+
+
+  //var td = browser.text("a");
+  
+  //console.log(corpo.length);
+
+  //var li = browser.text("li");
+
+ 	
+  //browser.pressButton("menuid_b_5", function () {                  
+    //console.log("Clicou no botao estoques"); 
+    //url_atual = browser.location.href;          
+    //console.log(url_atual)          
+    //browser.fill("ds_placa", "bcf6997")          
+    //console.log(browser.text("div"));          
+    //console.log("ok esta na pagina 2")                                
+   //});//fecha sublink       
+  
+//fs.writeFile("C:\\Users\\tr642633\\Documents\\desenvolvimento\\web.txt", td, 
+//  function(erro) { 
+//   if(erro) { 
+//    throw erro; 
+//   } 
+//  console.log("Arquivo web salvo");
+//});
+
+});//fecha pressbutton      
+
+
+
+
+});//fecha function acesso
