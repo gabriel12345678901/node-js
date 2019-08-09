@@ -1,0 +1,50 @@
+var temporal = require('temporal')
+var Browser = require("zombie"); 
+browser = new Browser(); 
+var request = require("request");
+//const rp = require('request-promise')
+var cheerio = require('cheerio');
+var fs = require('fs');
+
+temporal.loop(20000, function(){
+
+    temporal.delay(10000,function(){
+
+        browser.visit('https://coinlib.io/coin/BTC/Bitcoin?utm_source=foxbit.com.br&utm_medium=clwidget&utm_campaign=full_v2', function(err,res,body){
+        //request('https://coinlib.io/coin/BTC/Bitcoin?utm_source=foxbit.com.br&utm_medium=clwidget&utm_campaign=full_v2', function(err,res,body){
+         console.log('acessou a url btc');
+         if(err) console.log('Erro: '+err);
+        // let $ = cheerio.load(body);
+        
+         //console.log('procurando title:'+browser.text('title'))
+         //console.log('procurando div #root:'+browser.html('#coin-main-price'))
+         var coinlib = browser.html('#coin-main-price')
+         var binance = browser.html('#exchange_avg_price-29')
+         console.log('valor do btc coinlib: '+coinlib)
+         console.log('valor do btc binance: '+binance)
+         
+         
+        fs.appendFile('C:\\Users\\tr642633\\Documents\\desenvolvimento\\node\\projeto\\btc.txt', coinlib +';'+ '\n ' + binance + '; ' + '\n', function (err) {
+                if (err) throw err;
+                
+         });
+        
+        
+         
+         //$('.sub-price-wrap').each(function(){
+         // console.log('entrou no laço, localizou classe')
+         // var title = $(this).find('#coin-main-price span').text();
+         
+         
+         
+        
+            console.log('procedimento finalizado.');
+        
+         
+        
+        
+        }); 
+
+    })
+    
+})
