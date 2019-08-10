@@ -1,0 +1,60 @@
+var temporal = require('temporal')
+var Browser = require("zombie"); 
+browser = new Browser(); 
+var request = require("request");
+var cheerio = require('cheerio');
+var fs = require('fs');
+
+var date = new Date(); 
+var hora = date.getHours();
+
+
+const CHAT_ID = '-1001312460068';
+const token = '863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI';
+const Telegram = require('telegraf/telegram')
+const telegram = new Telegram(token)
+
+temporal.loop(30000, function(){
+
+        browser.visit('https://coinlib.io/coin/BTC/Bitcoin?utm_source=foxbit.com.br&utm_medium=clwidget&utm_campaign=full_v2', function(err,res,body){
+        //request('https://coinlib.io/coin/BTC/Bitcoin?utm_source=foxbit.com.br&utm_medium=clwidget&utm_campaign=full_v2', function(err,res,body){
+        console.log('acessou a url btc, vai carregar o delay'); 
+        temporal.delay(10000,function(){
+            console.log('carregado o delay'); 
+        
+         //if(err) console.log('Erro: '+err);
+        // let $ = cheerio.load(body);
+        
+         //console.log('procurando title:'+browser.text('title'))
+         //console.log('procurando div #root:'+browser.html('#coin-main-price'))
+         var coinlib = browser.html('#coin-main-price')
+         var binance = browser.html('#exchange_avg_price-29')
+         var zb = browser.html('#exchange_avg_price-189')
+
+        
+
+         console.log('valor do btc coinlib: '+'\n'+coinlib)
+         console.log('valor do btc binance: '+'\n'+binance)
+         console.log('valor do btc zb.com: '+'\n'+zb)
+         
+        
+        
+         fs.appendFile('C:\\Users\\tr642633\\Documents\\desenvolvimento\\node\\projeto\\btc.txt', coinlib +';'+'\n' + binance + ';'+'\n'+ zb + '; ' + '\n', function (err) {
+                if (err) throw err;
+                
+         });
+        
+         //$('.sub-price-wrap').each(function(){
+         // console.log('entrou no laço, localizou classe')
+         // var title = $(this).find('#coin-main-price span').text();
+
+         //saudação telegram
+        if(hora<12){telegram.sendMessage(CHAT_ID, 'Bom dia, enviando cotação bitcoin: '+'\n'+ coinlib)}
+        if(hora>=12){telegram.sendMessage(CHAT_ID, 'Boa tarde, enviando cotação bitcoin: '+'\n'+ coinlib)}
+        if(hora>17){telegram.sendMessage(CHAT_ID, 'Boa noite, enviando cotação bitcoin: '+'\n'+ coinlib)}
+         console.log('procedimento finalizado.');
+        }); //fecha temporal.delay
+        
+    })//fecha browser.visit
+    
+})//fecha temporal.loop
