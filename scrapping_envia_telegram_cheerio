@@ -1,0 +1,71 @@
+var temporal = require('temporal')
+var request = require("request");
+var cheerio = require('cheerio');
+//var fs = require('fs');
+
+const CHAT_ID = '-385371087';
+const token = '863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI';
+const Telegram = require('telegraf/telegram')
+const telegram = new Telegram(token)
+const url = 'https://coinlib.io/coin/BTC/Bitcoin?utm_source=foxbit.com.br&utm_medium=clwidget&utm_campaign=full_v2'
+
+temporal.loop(30000, function(){
+     
+       
+    request(url, function(err,res,body){
+        console.log('acessou a url btc, vai carregar o delay'); 
+      temporal.delay(10000,function(){
+         console.log('carregado o delay'); 
+        
+         //if(err) console.log('Erro: '+err);
+         let $ = cheerio.load(body);
+         telegram.sendMessage(CHAT_ID, 'Dados disponíveis em : '+'\n'+ url)
+         
+         $('.brkdwn-row div').each(function(){
+                    
+              var binance = $(this).find('#exchange_avg_price-29').text();
+              var zb = $(this).find('#exchange_avg_price-189').text();
+              var lbank = $(this).find('#exchange_avg_price-208').text();
+              var bitz = $(this).find('#exchange_avg_price-187').text();
+
+              if(binance!=""){
+                console.log('valor do btc binance: '+binance)
+                telegram.sendMessage(CHAT_ID, 'Bitcoin em dólar corretora binance: '+binance)
+
+              } 
+              
+              if(zb!=""){
+                console.log('valor do btc zb.com: '+zb)
+                telegram.sendMessage(CHAT_ID, 'Bitcoin em dólar corretora zb.com: '+zb)
+
+              } 
+              
+              if(lbank!=""){
+                console.log('valor do btc lbank: '+lbank)
+                telegram.sendMessage(CHAT_ID, 'Bitcoin em dólar corretora Lbank: '+lbank)
+              
+              } 
+              
+              if(bitz!=""){
+                console.log('valor do btc bitz: '+bitz)
+                telegram.sendMessage(CHAT_ID, 'Bitcoin em dólar, corretora bit-z: '+bitz)
+
+              } 
+              
+                               
+         //fs.appendFile('C:\\Users\\tr642633\\Documents\\desenvolvimento\\node\\projeto\\btc.txt', coinlib +';'+'\n' + binance + ';'+'\n'+ zb + '; ' + '\n', function (err) {
+         //       if (err) throw err;
+                
+         //});
+         
+        
+        }); //fecha cheerio
+        console.log('processo finalizado')
+    })//fecha temporal.delay
+    
+    
+    
+   
+  })//fecha request
+
+})//fecha temporal.loop
