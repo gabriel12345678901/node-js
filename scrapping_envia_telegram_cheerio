@@ -8,13 +8,15 @@ const token = '863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI';
 const Telegram = require('telegraf/telegram')
 const telegram = new Telegram(token)
 const url = 'https://coinlib.io/coin/BTC/Bitcoin?utm_source=foxbit.com.br&utm_medium=clwidget&utm_campaign=full_v2'
+const url2 = 'https://coinlib.io/coin/ETH/Ethereum'
 
-temporal.loop(30000, function(){
+
+temporal.loop(20000, function(){
      
        
     request(url, function(err,res,body){
-        console.log('acessou a url btc, vai carregar o delay'); 
-      temporal.delay(10000,function(){
+         console.log('acessou a url btc, vai carregar o delay'); 
+         temporal.delay(5000,function(){
          console.log('carregado o delay'); 
         
          //if(err) console.log('Erro: '+err);
@@ -60,12 +62,65 @@ temporal.loop(30000, function(){
          
         
         }); //fecha cheerio
-        console.log('processo finalizado')
-    })//fecha temporal.delay
+        console.log('processo btc finalizado')
+        //final btc
+
+        //inicia eth
+        temporal.delay(5000,function(){
+          request(url2, function(err,res,body){
+            console.log('acessou a url eth btc, vai carregar o delay'); 
+          temporal.delay(1000,function(){
+             console.log('carregado o delay eth'); 
+            
+             //if(err) console.log('Erro: '+err);
+             let $ = cheerio.load(body);
+             telegram.sendMessage(CHAT_ID, 'Dados disponíveis em : '+'\n'+ url2)
+             
+             $('.brkdwn-row div').each(function(){
+              //console.log('acchou a classe eth');       
+                  var binance_eth = $(this).find('#exchange_avg_price-208').text();
+                  var zb_eth = $(this).find('#exchange_avg_price-189').text();
+                  var lbank_eth = $(this).find('#exchange_avg_price-208').text();
+                  var bitz_eth = $(this).find('#exchange_avg_price-187').text();
+        
+                  if(binance_eth!=""){
+                    console.log('valor do eth binance: '+binance_eth)
+                    telegram.sendMessage(CHAT_ID, 'Eth em dólar corretora poloniex: '+lbank_eth)
+        
+                  } 
+                  
+                  if(zb_eth!=""){
+                    console.log('valor do eth zb.com: '+zb_eth)
+                    telegram.sendMessage(CHAT_ID, 'Eth em dólar corretora zb.com: '+zb_eth)
+        
+                  } 
+                  
+                  if(lbank_eth!=""){
+                    console.log('valor do eth lbank: '+lbank_eth)
+                    telegram.sendMessage(CHAT_ID, 'Eth em dólar corretora Lbank: '+lbank_eth)
+                  
+                  } 
+                  
+                  if(bitz_eth!=""){
+                    console.log('valor do eth bitz: '+bitz_eth)
+                    telegram.sendMessage(CHAT_ID, 'Eth em dólar, corretora bit-z: '+bitz_eth)
+        
+                  } 
+              
+            
+             }); //fecha cheerio
+            console.log('processo eth finalizado')
+           })//fecha temporal.delay
+        
+          })//fecha request
+
+
+        })
     
+       //final eth
     
+      })//fecha temporal.delay
     
-   
   })//fecha request
 
 })//fecha temporal.loop
