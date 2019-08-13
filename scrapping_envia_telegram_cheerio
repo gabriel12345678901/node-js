@@ -12,7 +12,7 @@ const url2 = 'https://coinlib.io/coin/ETH/Ethereum'
 
 
 temporal.loop(20000, function(){
-     
+  telegram.sendMessage(CHAT_ID, 'Dados disponíveis BTC em : '+'\n'+ url)
        
     request(url, function(err,res,body){
          console.log('acessou a url btc, vai carregar o delay'); 
@@ -21,7 +21,7 @@ temporal.loop(20000, function(){
         
          //if(err) console.log('Erro: '+err);
          let $ = cheerio.load(body);
-         telegram.sendMessage(CHAT_ID, 'Dados disponíveis em : '+'\n'+ url)
+         
          
          $('.brkdwn-row div').each(function(){
                     
@@ -67,6 +67,8 @@ temporal.loop(20000, function(){
 
         //inicia eth
         temporal.delay(5000,function(){
+          telegram.sendMessage(CHAT_ID, 'Dados ETH disponíveis em : '+'\n'+ url2)
+
           request(url2, function(err,res,body){
             console.log('acessou a url eth btc, vai carregar o delay'); 
           temporal.delay(1000,function(){
@@ -74,7 +76,7 @@ temporal.loop(20000, function(){
             
              //if(err) console.log('Erro: '+err);
              let $ = cheerio.load(body);
-             telegram.sendMessage(CHAT_ID, 'Dados disponíveis em : '+'\n'+ url2)
+             
              
              $('.brkdwn-row div').each(function(){
               //console.log('acchou a classe eth');       
