@@ -10,12 +10,24 @@ const telegram = new Telegram(token)
 const url = 'https://coinlib.io/coin/BTC/Bitcoin?utm_source=foxbit.com.br&utm_medium=clwidget&utm_campaign=full_v2'
 const url2 = 'https://coinlib.io/coin/ETH/Ethereum'
 const url3 = 'https://guiadobitcoin.com.br/categoria/noticias/'//linha 132
-
+const url4 = 'https://exame.abril.com.br/noticias-sobre/criptomoedas/'//linha 189
  
+
+temporal.delay(10000,function(){cotacao_btc()}) 
+temporal.delay(13000,function(){cotacao_eth()}) 
+//temporal.delay(3000,function(){noticias_guiabtc()})
+temporal.delay(16000,function(){noticias_exame()})
+
+
+
+
+
+
 //inicio cotações
-temporal.loop(200000, function(){
+function cotacao_btc(){
+ temporal.loop(10000, function(){
   
-  temporal.delay(6000,function(){
+  temporal.delay(2000,function(){
     telegram.sendMessage(CHAT_ID, 'Dados disponíveis BTC em : '+'\n'+ url)
     request(url, function(err,res,body){
          
@@ -61,15 +73,20 @@ temporal.loop(200000, function(){
     });//fecha request btc
   })//fim temporal.delay btc
   //final btc
+ });
+//fecha temporal.loop cotação btc
+}
+
 
   //inicia eth
-  temporal.delay(4000,function(){
+function cotacao_eth(){
+  temporal.loop(10000,function(){
     
     telegram.sendMessage(CHAT_ID, 'Dados ETH disponíveis em : '+'\n'+ url2)
     request(url2, function(err,res,body){
        
        console.log('acessou a url eth btc, vai carregar o delay'); 
-       temporal.delay(1000,function(){
+       
        console.log('carregado o delay eth'); 
       
        //if(err) console.log('Erro: '+err);
@@ -113,45 +130,48 @@ temporal.loop(200000, function(){
      })//fecha temporal.delay
   
     })//fecha request eth
+}
 
-  })//fecha temporal.delay eth
 
-})
-//fecha temporal.loop 
-//fecha cotações
+ 
  
 //inicia noticias
-temporal.loop(300000,function(){
+
+function noticias_guiabtc(){
+ temporal.loop(10000,function(){
     
   //telegram.sendMessage(CHAT_ID, 'Noticias em : '+'\n'+ url3)
+  //guia do bitoin
+  
+  
   request(url3, function(err,res,body){
      
-     console.log('acessou a url noticias, vai carregar o delay'); 
-     temporal.delay(3000,function(){
-     console.log('carregado o delay noticias'); 
+     console.log('acessou a url noticias guia do btc, vai carregar o delay'); 
+   temporal.delay(1000,function(){   
+     //console.log('carregado o delay noticias'); 
     
      //if(err) console.log('Erro: '+err);
      let $ = cheerio.load(body);
      
      //abre primeiro bloco de noticias
      $('#31608').each(function(){
-      console.log('acchou a classe noticias bloco 1');       
+      console.log('achou a classe noticias guia do btc bloco 1');       
           var noticia1 = $(this).find('.post-title a').text();
           var noticia2 = $(this).find('.excerpt p').text();
          
 
           if(noticia1!=""){
-            console.log('noticia1: '+noticia1)
-            telegram.sendMessage(CHAT_ID, '==>: '+noticia1)
+            console.log('noticia1 guia do btc: '+noticia1)
+            telegram.sendMessage(CHAT_ID, 'guia do btc==>: '+noticia1)
 
           } 
           
            if(noticia2!=""){
-            console.log('Noticia2: '+noticia2)
-            telegram.sendMessage(CHAT_ID, '==>: '+noticia2)
+            console.log('Noticia2 guia do btc: '+noticia2)
+            telegram.sendMessage(CHAT_ID, 'guia do btc==>: '+noticia2)
 
           } 
-        }); 
+      }); 
         //fecha primeiro bloco de noticia
 
         //abre segundo bloco de noticias
@@ -162,28 +182,104 @@ temporal.loop(300000,function(){
          
 
           if(noticia3!=""){
-            console.log('noticia3: '+noticia3)
-            telegram.sendMessage(CHAT_ID, '==>: '+noticia3)
+            console.log('noticia3 guia do btc: '+noticia3)
+            telegram.sendMessage(CHAT_ID, 'guia do bitcoin==>: '+noticia3)
 
           } 
           
            if(noticia4!=""){
-            console.log('Noticia4: '+noticia4)
-            telegram.sendMessage(CHAT_ID, '==>: '+noticia4)
+            console.log('Noticia4 guia do btc: '+noticia4)
+            telegram.sendMessage(CHAT_ID, 'guia do bitcoin==>: '+noticia4)
 
           } 
         }); 
         //fecha segundo bloco de noticia
         
         
-    console.log('processo noticias finalizado')
-   })//fecha temporal.delay
+    console.log('processo noticias guia do btc finalizado')
+   })//fecha request
 
-  })//fecha request noticias
+  })//fecha temporal delay
+  //fecha noticias guia do bitcoin
 
-})//fecha temporal.loop  noticias
+ });//fecha temporal.loop noticas guia do btc
+};
+//fecha guia do btc
+
+  
+  //inicia noticias exame
+  function noticias_exame(){
+    
+  temporal.loop(10000,function(){
+   request(url4, function(err,res,body){
+     
+   console.log('acessou a url noticias exame, vai carregar o delay'); 
+  
+   console.log('carregado o delay noticias exame'); 
+ 
+  //if(err) console.log('Erro: '+err);
+   let $ = cheerio.load(body);
+  
+  //abre primeiro bloco de noticias exame
+  $('#post-3550372').each(function(){
+   console.log('acchou a classe noticias exame bloco 1');       
+       var noticia1_exame = $(this).find('.list-item-title a').text();
+       
+      
+
+       if(noticia1_exame!=""){
+         console.log('noticia1 exame: '+noticia1_exame)
+         telegram.sendMessage(CHAT_ID, 'Exame ==>: '+noticia1_exame)
+
+       } 
+      })   
+       
+     //fecha primeiro bloco de noticia exame
+
+     //abre segundo bloco de noticias exame
+    $('#post-3543668').each(function(){
+       console.log('achou a classe noticias exame bloco 2');       
+       var noticia2_exame = $(this).find('.list-item-title a').text();
+       
+      
+
+       if(noticia2_exame!=""){
+         console.log('noticia2 exame: '+noticia2_exame)
+         telegram.sendMessage(CHAT_ID, 'Exame ==>: '+noticia2_exame)
+
+       } 
+      })   
+        
+     //fecha segundo bloco de noticia exame
+
+      //abre terceiro bloco de noticias exame
+    $('#post-3543473').each(function(){
+      console.log('achou a classe noticias exame bloco 2');       
+      var noticia3_exame = $(this).find('.list-item-title a').text();
+      
+     
+
+      if(noticia3_exame!=""){
+        console.log('noticia2 exame: '+noticia3_exame)
+        telegram.sendMessage(CHAT_ID, 'Exame ==>: '+noticia3_exame)
+
+      } 
+     })   
+       
+    //fecha terceiro bloco de noticias exame
+     
+     
+ console.log('processo noticias exame finalizado')
+})//fecha request noticias exame
+
+})//fecha temporal.loop noticias exame
+
+}  
+//fecha exame
 
 
+
+  
 //fs.appendFile('C:\\Users\\tr642633\\Documents\\desenvolvimento\\node\\projeto\\btc.txt', coinlib +';'+'\n' + binance + ';'+'\n'+ zb + '; ' + '\n', function (err) {
          //       if (err) throw err;
                 
