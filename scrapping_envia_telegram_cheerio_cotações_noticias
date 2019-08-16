@@ -13,15 +13,23 @@ const url3 = 'https://guiadobitcoin.com.br/categoria/noticias/'//linha 132
 const url4 = 'https://exame.abril.com.br/noticias-sobre/criptomoedas/'//linha 189
  
 
+geral();
+function geral(){
+temporal.delay(3000,function(){cotacao_btc()})
+temporal.delay(4000,function(){cotacao_eth()})
+temporal.delay(5000,function(){noticias_guiabtc()})
+temporal.delay(6000,function(){noticias_exame()})
+
+}
 //cotacao_btc()//linha 27 
 //cotacao_eth()//linha 82
 //noticias_guiabtc()//linha 141
-//noticias_exame()//linha 211
+//noticias_exame()//linha 180
 
 
 //inicio cotações
 function cotacao_btc(){
- temporal.loop(10000, function(){
+ temporal.loop(60000, function(){
   
   temporal.delay(2000,function(){
     telegram.sendMessage(CHAT_ID, 'Dados disponíveis BTC em : '+'\n'+ url)
@@ -76,7 +84,7 @@ function cotacao_btc(){
 
   //inicia eth
 function cotacao_eth(){
-  temporal.loop(10000,function(){
+  temporal.loop(70000,function(){
     
     telegram.sendMessage(CHAT_ID, 'Dados ETH disponíveis em : '+'\n'+ url2)
     request(url2, function(err,res,body){
@@ -134,7 +142,7 @@ function cotacao_eth(){
 //inicia noticias
 
 function noticias_guiabtc(){
- temporal.loop(10000,function(){
+ temporal.loop(75000,function(){
     
   //telegram.sendMessage(CHAT_ID, 'Noticias em : '+'\n'+ url3)
   //guia do bitoin
@@ -179,7 +187,7 @@ function noticias_guiabtc(){
   //inicia noticias exame
   function noticias_exame(){
     
-  temporal.loop(20000,function(){
+  temporal.loop(80000,function(){
    request(url4, function(err,res,body){
      
    console.log('acessou a url noticias exame, vai carregar o delay'); 
