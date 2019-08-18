@@ -1,4 +1,3 @@
-
 var temporal = require('temporal')
 var request = require("request");
 var cheerio = require('cheerio');
@@ -16,7 +15,8 @@ const url5 = 'https://www.infomoney.com.br/mercados/ultimas-noticias'//linha 239
 const url6 = 'https://portaldobitcoin.com/'//linha 280
 const url7 = 'https://portaldobitcoin.com/mineracao/'//linha 322
 const url8 = 'https://portaldobitcoin.com/blockchain/'//linha 364
-const url9 = 'https://br.investing.com/news/cryptocurrency-news'//linha xxx
+const url9 = 'https://br.cointelegraph.com/tags/cryptocurrencies'//linha 407
+const url10 = 'https://br.cointelegraph.com/tags/blockchain'//linha xxx
 
 geral();
 function geral(){
@@ -28,9 +28,10 @@ temporal.delay(1000,function(){noticias_infomoney()})//1560000
 temporal.delay(1000,function(){noticias_portalbtc()})//1860000
 temporal.delay(1000,function(){noticias_portalbtc_miner()})//2100000
 temporal.delay(1000,function(){noticias_portalbtc_block()})//2100000
+temporal.delay(1000,function(){noticias_cointelegraph()})//2100000
+temporal.delay(1000,function(){noticias_cointelegraph_blockchain()})//2100000
 
 }
-
 //cotacao_btc()//linha 27 
 //cotacao_eth()//linha 99
 //noticias_guiabtc()//linha 157
@@ -39,10 +40,11 @@ temporal.delay(1000,function(){noticias_portalbtc_block()})//2100000
 //noticias_portalbtc();//linha 280
 //noticias_portalbtc_miner();//linha 322
 //noticias_portalbtc_block();//linha 364
-
+//noticias_cointelegraph();//linha 406
+//noticias_cointelegraph_blockchain()//linha 449
 //inicio cotações
 function cotacao_btc(){
- temporal.loop(360000, function(){
+ temporal.loop(410000, function(){
   
   temporal.delay(1000,function(){
     telegram.sendMessage(CHAT_ID, 'Dados disponíveis BTC em : '+'\n'+ url)
@@ -155,7 +157,7 @@ function cotacao_eth(){
 //inicia noticias
 
 function noticias_guiabtc(){
- temporal.loop(960000,function(){
+ temporal.loop(3060000,function(){
     
   //telegram.sendMessage(CHAT_ID, 'Noticias em : '+'\n'+ url3)
   //guia do bitoin
@@ -177,7 +179,7 @@ function noticias_guiabtc(){
           
           if(noticia1!=""){
             console.log('noticia1 guia do btc: '+noticia1)
-            telegram.sendMessage(CHAT_ID, 'Notícias guia do btc==>: '+noticia1)
+            telegram.sendMessage(CHAT_ID, 'Notícias guia do btc==>: '+noticia1+'\n'+'Link da notícia: '+url3)
           } 
                    
       }); 
@@ -198,7 +200,7 @@ function noticias_guiabtc(){
 
 //abre exame 
 function noticias_exame(){
-  temporal.loop(1260000,function(){
+  temporal.loop(4260000,function(){
        
    console.log('entrou na function exame'); 
    request(url4, function(err,res,body){
@@ -237,7 +239,7 @@ function noticias_exame(){
 //abre infomoney
 
 function noticias_infomoney(){
-  temporal.loop(1560000,function(){
+  temporal.loop(4560000,function(){
      
    //telegram.sendMessage(CHAT_ID, 'Noticias em : '+'\n'+ url3)
    //guia do bitoin 2400000
@@ -278,7 +280,7 @@ function noticias_infomoney(){
 
  //abre portal do btc
 function noticias_portalbtc(){
-  temporal.loop(1860000,function(){
+  temporal.loop(4860000,function(){
      
    //telegram.sendMessage(CHAT_ID, 'Noticias em : '+'\n'+ url3)
    //guia do bitoin 2400000
@@ -320,7 +322,7 @@ function noticias_portalbtc(){
 
  //abre portal do btc mineração
 function noticias_portalbtc_miner(){
-  temporal.loop(2100000,function(){
+  temporal.loop(5100000,function(){
      
    //telegram.sendMessage(CHAT_ID, 'Noticias em : '+'\n'+ url3)
    //guia do bitoin 2400000
@@ -362,7 +364,7 @@ function noticias_portalbtc_miner(){
 
  //abre portal do btc blockchain
 function noticias_portalbtc_block(){
-  temporal.loop(10000,function(){
+  temporal.loop(2400000,function(){
     //2100000 
    //telegram.sendMessage(CHAT_ID, 'Noticias em : '+'\n'+ url3)
    //guia do bitoin 2400000
@@ -401,6 +403,90 @@ function noticias_portalbtc_block(){
  };
  //fecha portal do btc block
 
+ //abre cointelegraph
+function noticias_cointelegraph(){
+  temporal.loop(2700000,function(){
+    //2700000 
+   //telegram.sendMessage(CHAT_ID, 'Noticias em : '+'\n'+ url3)
+   //guia do bitoin 2400000
+   
+   console.log('entrou na function coin telegraph'); 
+   request(url9, function(err,res,body){
+      
+      console.log('acessou a url noticias coin telegraph, vai carregar o delay'); 
+    temporal.delay(1000,function(){   
+      console.log('carregado o delay noticias'); 
+     
+      //if(err) console.log('Erro: '+err);
+      let $ = cheerio.load(body);
+      
+      //abre primeiro bloco de noticias
+      $('.post-preview-list-inline__item').each(function(){
+       console.log('achou a classe noticias coin telegraph');       
+           var noticia1_cointelegraph = $(this).find('p').text();
+           
+           if(noticia1_cointelegraph!=""){
+             console.log('noticia1 coin telegraph: '+noticia1_cointelegraph)
+             telegram.sendMessage(CHAT_ID, 'Notícias coin telegraph==>: '+noticia1_cointelegraph+'\n'+'Link da notícia: '+url9)
+           } 
+                    
+       }); 
+         //fecha primeiro bloco de noticia
+   
+         
+     console.log('processo noticias coin teleraph finalizado')
+    })//fecha request
+ 
+   })//fecha temporal delay
+   //fecha noticias portal do btc
+ 
+  });//fecha temporal.loop noticas ultimo instante
+ };
+ //fecha cointelegraph
+
+
+ //abre cointelegraph_blockchain
+function noticias_cointelegraph_blockchain(){
+  temporal.loop(3000000,function(){
+    //2700000 
+   //telegram.sendMessage(CHAT_ID, 'Noticias em : '+'\n'+ url3)
+   //guia do bitoin 3000000
+   
+   console.log('entrou na function coin telegraph_blockchain'); 
+   request(url9, function(err,res,body){
+      
+      console.log('acessou a url noticias coin telegraph, vai carregar o delay'); 
+    temporal.delay(1000,function(){   
+      console.log('carregado o delay noticias'); 
+     
+      //if(err) console.log('Erro: '+err);
+      let $ = cheerio.load(body);
+      
+      //abre primeiro bloco de noticias
+      $('.post-preview-list-inline__item').each(function(){
+       console.log('achou a classe noticias coin telegraph_blockchain');       
+           var noticia1_cointelegraph_blockchain = $(this).find('p').text();
+           
+           if(noticia1_cointelegraph_blockchain!=""){
+             console.log('noticia1 coin telegraph: '+noticia1_cointelegraph_blockchain)
+             telegram.sendMessage(CHAT_ID, 'Notícias coin telegraph_blockchain==>: '+noticia1_cointelegraph_blockchain+'\n'+'Link da notícia: '+url10)
+           } 
+                    
+       }); 
+         //fecha primeiro bloco de noticia
+   
+         
+     console.log('processo noticias coin teleraph blockchain finalizado')
+    })//fecha request
+ 
+   })//fecha temporal delay
+   //fecha noticias coin teleraph blockchain
+ 
+  });//fecha temporal.loop noticas coin telegraph blockchain
+ };
+ //fecha coin telegraph blockchain
+
+
 
   
 
@@ -412,3 +498,4 @@ function noticias_portalbtc_block(){
          //       if (err) throw err;
                 
  //});
+
