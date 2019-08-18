@@ -1,3 +1,4 @@
+
 var temporal = require('temporal')
 var request = require("request");
 var cheerio = require('cheerio');
@@ -8,26 +9,36 @@ const token = '863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI';
 const Telegram = require('telegraf/telegram')
 const telegram = new Telegram(token)
 const url = 'https://coinlib.io/coin/BTC/Bitcoin?utm_source=foxbit.com.br&utm_medium=clwidget&utm_campaign=full_v2'
-const url2 = 'https://coinlib.io/coin/ETH/Ethereum'
-const url3 = 'https://guiadobitcoin.com.br/categoria/noticias/'//linha 132
-const url4 = 'https://exame.abril.com.br/noticias-sobre/criptomoedas/'//linha 189
-const url5 = 'https://www.infomoney.com.br/mercados/ultimas-noticias'
-
+const url2 = 'https://coinlib.io/coin/ETH/Ethereum'//linha 99
+const url3 = 'https://guiadobitcoin.com.br/categoria/noticias/'//linha 157
+const url4 = 'https://exame.abril.com.br/noticias-sobre/criptomoedas/'//linha 200
+const url5 = 'https://www.infomoney.com.br/mercados/ultimas-noticias'//linha 239
+const url6 = 'https://portaldobitcoin.com/'//linha 280
+const url7 = 'https://portaldobitcoin.com/mineracao/'//linha 322
+const url8 = 'https://portaldobitcoin.com/blockchain/'//linha 364
+const url9 = 'https://br.investing.com/news/cryptocurrency-news'//linha xxx
 
 geral();
 function geral(){
-temporal.delay(0000,function(){cotacao_btc()})//300000
-temporal.delay(3000,function(){cotacao_eth()})//600000
-temporal.delay(6000,function(){noticias_guiabtc()})//1200000
-temporal.delay(9000,function(){noticias_exame()})//1800000
-temporal.delay(12000,function(){noticias_infomoney()})//2400000
+temporal.delay(0000,function(){cotacao_btc()})//360000
+temporal.delay(1000,function(){cotacao_eth()})//660000
+temporal.delay(1000,function(){noticias_guiabtc()})//960000
+temporal.delay(1000,function(){noticias_exame()})//1260000
+temporal.delay(1000,function(){noticias_infomoney()})//1560000
+temporal.delay(1000,function(){noticias_portalbtc()})//1860000
+temporal.delay(1000,function(){noticias_portalbtc_miner()})//2100000
+temporal.delay(1000,function(){noticias_portalbtc_block()})//2100000
+
 }
 
 //cotacao_btc()//linha 27 
-//cotacao_eth()//linha 82
-//noticias_guiabtc()//linha 141
-//noticias_exame()//linha 180
-//noticias_infomoney()
+//cotacao_eth()//linha 99
+//noticias_guiabtc()//linha 157
+//noticias_exame()//linha 200
+//noticias_infomoney()//linha 239
+//noticias_portalbtc();//linha 280
+//noticias_portalbtc_miner();//linha 322
+//noticias_portalbtc_block();//linha 364
 
 //inicio cotações
 function cotacao_btc(){
@@ -86,7 +97,7 @@ function cotacao_btc(){
 
   //inicia eth
 function cotacao_eth(){
-  temporal.loop(600000,function(){
+  temporal.loop(660000,function(){
     
     telegram.sendMessage(CHAT_ID, 'Dados ETH disponíveis em : '+'\n'+ url2)
     request(url2, function(err,res,body){
@@ -144,7 +155,7 @@ function cotacao_eth(){
 //inicia noticias
 
 function noticias_guiabtc(){
- temporal.loop(1200000,function(){
+ temporal.loop(960000,function(){
     
   //telegram.sendMessage(CHAT_ID, 'Noticias em : '+'\n'+ url3)
   //guia do bitoin
@@ -185,164 +196,48 @@ function noticias_guiabtc(){
 };
 //fecha guia do btc
 
-  
-  //inicia noticias exame
-  function noticias_exame(){
-    
-  temporal.loop(1800000,function(){
+//abre exame 
+function noticias_exame(){
+  temporal.loop(1260000,function(){
+       
+   console.log('entrou na function exame'); 
    request(url4, function(err,res,body){
+      
+      console.log('acessou a url noticias exame, vai carregar o delay'); 
+    temporal.delay(1000,function(){   
+      console.log('carregado o delay noticias'); 
      
-   console.log('acessou a url noticias exame, vai carregar o delay'); 
-  
-   console.log('carregado o delay noticias exame'); 
+      //if(err) console.log('Erro: '+err);
+      let $ = cheerio.load(body);
+      
+      //abre primeiro bloco de noticias
+      $('.list-item-title').each(function(){
+       console.log('achou a classe noticias exame');       
+           var noticia1_exame = $(this).find('a').text();
+           
+           if(noticia1_exame!=""){
+             console.log('noticia1 portalbtc blockchain: '+noticia1_exame)
+             telegram.sendMessage(CHAT_ID, 'Notícias exame==>: '+noticia1_exame+'\n'+'Link da notícia: '+url4)
+           } 
+                    
+       }); 
+         //fecha primeiro bloco de noticia
+   
+         
+     console.log('processo noticias portal do btc block finalizado')
+    })//fecha request
  
-  //if(err) console.log('Erro: '+err);
-   let $ = cheerio.load(body);
-  
-  //abre primeiro bloco de noticias exame
-  $('#post-3550372').each(function(){
-   console.log('acchou a classe noticias exame bloco 1');       
-       var noticia1_exame = $(this).find('.list-item-title a').text();
-       
-      
-
-       if(noticia1_exame!=""){
-         console.log('noticia1 exame: '+noticia1_exame)
-         telegram.sendMessage(CHAT_ID, 'Notícias Exame ==>: '+noticia1_exame)
-
-       } 
-      })   
-       
-     //fecha primeiro bloco de noticia exame
-
-     //abre segundo bloco de noticias exame
-    $('#post-3543668').each(function(){
-       console.log('achou a classe noticias exame bloco 2');       
-       var noticia2_exame = $(this).find('.list-item-title a').text();
-       
-
-       if(noticia2_exame!=""){
-         console.log('noticia2 exame: '+noticia2_exame)
-         telegram.sendMessage(CHAT_ID, 'Notícias Exame ==>: '+noticia2_exame)
-
-       } 
-      })   
-        
-     //fecha segundo bloco de noticia exame
-
-      //abre terceiro bloco de noticias exame
-    $('#post-3543473').each(function(){
-      console.log('achou a classe noticias exame bloco 3');       
-      var noticia3_exame = $(this).find('.list-item-title a').text();
-      
-      if(noticia3_exame!=""){
-        console.log('noticia3 exame: '+noticia3_exame)
-        telegram.sendMessage(CHAT_ID, 'Notícias Exame ==>: '+noticia3_exame)
-
-      } 
-     })   
-       
-    //fecha terceiro bloco de noticias exame
-
-      //abre quarto bloco de noticias exame
-      $('#post-3541877').each(function(){
-        console.log('achou a classe noticias exame bloco 4');       
-        var noticia4_exame = $(this).find('.list-item-title a').text();
-        
-        if(noticia4_exame!=""){
-          console.log('noticia4 exame: '+noticia4_exame)
-          telegram.sendMessage(CHAT_ID, 'Notícias Exame ==>: '+noticia4_exame)
-  
-        } 
-       })   
-         
-      //fecha quarto bloco de noticias exame
-
-      //fecha terceiro bloco de noticias exame
-
-      //abre quinto bloco de noticias exame
-      $('#post-3521879').each(function(){
-        console.log('achou a classe noticias exame bloco 5');       
-        var noticia5_exame = $(this).find('.list-item-title a').text();
-        
-        if(noticia5_exame!=""){
-          console.log('noticia5 exame: '+noticia5_exame)
-          telegram.sendMessage(CHAT_ID, 'Notícias Exame ==>: '+noticia5_exame)
-  
-        } 
-       })   
-         
-      //fecha quinto bloco de noticias exame
-
-
-      //abre sexto bloco de noticias exame
-      $('#post-3520494').each(function(){
-        console.log('achou a classe noticias exame bloco 6');       
-        var noticia6_exame = $(this).find('.list-item-title a').text();
-        
-        if(noticia6_exame!=""){
-          console.log('noticia6 exame: '+noticia6_exame)
-          telegram.sendMessage(CHAT_ID, 'Notícias Exame ==>: '+noticia6_exame)
-  
-        } 
-       })   
-         
-      //fecha sexto bloco de noticias exame
-     
-      //abre setimo bloco de noticias exame
-      $('#post-3517620').each(function(){
-        console.log('achou a classe noticias exame bloco 7');       
-        var noticia7_exame = $(this).find('.list-item-title a').text();
-        
-        if(noticia7_exame!=""){
-          console.log('noticia7 exame: '+noticia7_exame)
-          telegram.sendMessage(CHAT_ID, 'Notícias Exame ==>: '+noticia7_exame)
-  
-        } 
-       })   
-         
-      //fecha setimo bloco de noticias exame
-
-      //abre oitavo bloco de noticias exame
-      $('#post-3515795').each(function(){
-        console.log('achou a classe noticias exame bloco 8');       
-        var noticia8_exame = $(this).find('.list-item-title a').text();
-        
-        if(noticia8_exame!=""){
-          console.log('noticia8 exame: '+noticia8_exame)
-          telegram.sendMessage(CHAT_ID, 'Notícias Exame ==>: '+noticia8_exame)
-  
-        } 
-       })   
-         
-      //fecha oitavo bloco de noticias exame
-
-       //abre nono bloco de noticias exame
-       $('#post-3506378').each(function(){
-        console.log('achou a classe noticias exame bloco 9');       
-        var noticia9_exame = $(this).find('.list-item-title a').text();
-        
-        if(noticia9_exame!=""){
-          console.log('noticia8 exame: '+noticia9_exame)
-          telegram.sendMessage(CHAT_ID, 'Notícias Exame ==>: '+noticia9_exame)
-  
-        } 
-       })   
-         
-      //fecha nono bloco de noticias exame
-     
- console.log('processo noticias exame finalizado')
-})//fecha request noticias exame
-
-})//fecha temporal.loop noticias exame
-
-}  
-//fecha exame
+   })//fecha temporal delay
+   //fecha noticias exame
+ 
+  });//fecha temporal.loop noticas exame
+ };
+ //fecha noticias exame
 
 //abre infomoney
 
 function noticias_infomoney(){
-  temporal.loop(2400000,function(){
+  temporal.loop(1560000,function(){
      
    //telegram.sendMessage(CHAT_ID, 'Noticias em : '+'\n'+ url3)
    //guia do bitoin 2400000
@@ -364,15 +259,13 @@ function noticias_infomoney(){
            
            if(noticia1_infomoney!=""){
              console.log('noticia1 infomoney: '+noticia1_infomoney)
-             telegram.sendMessage(CHAT_ID, 'Notícias infomoney==>: '+noticia1_infomoney)
+             telegram.sendMessage(CHAT_ID, 'Notícias infomoney==>: '+noticia1_infomoney+'\n'+'Link da notícia: '+url5)
            } 
                     
        }); 
          //fecha primeiro bloco de noticia
  
-         
-         
-         
+        
      console.log('processo noticias infomoney finalizado')
     })//fecha request
  
@@ -382,6 +275,137 @@ function noticias_infomoney(){
   });//fecha temporal.loop noticas infomoney
  };
  //fecha infomoney
+
+ //abre portal do btc
+function noticias_portalbtc(){
+  temporal.loop(1860000,function(){
+     
+   //telegram.sendMessage(CHAT_ID, 'Noticias em : '+'\n'+ url3)
+   //guia do bitoin 2400000
+   
+   console.log('entrou na function portal btc'); 
+   request(url6, function(err,res,body){
+      
+      console.log('acessou a url noticias portalbtc, vai carregar o delay'); 
+    temporal.delay(1000,function(){   
+      console.log('carregado o delay noticias'); 
+     
+      //if(err) console.log('Erro: '+err);
+      let $ = cheerio.load(body);
+      
+      //abre primeiro bloco de noticias
+      $('.item-details').each(function(){
+       console.log('achou a classe noticias portalbtc bloco 1');       
+           var noticia1_portalbtc = $(this).find('h3').text();
+           
+           if(noticia1_portalbtc!=""){
+             console.log('noticia1 portalbtc: '+noticia1_portalbtc)
+             telegram.sendMessage(CHAT_ID, 'Notícias portal do bitcoin==>: '+noticia1_portalbtc+'\n'+'Link da notícia: '+url6)
+           } 
+                    
+       }); 
+         //fecha primeiro bloco de noticia
+   
+         
+     console.log('processo noticias portal do btc finalizado')
+    })//fecha request
+ 
+   })//fecha temporal delay
+   //fecha noticias portal do btc
+ 
+  });//fecha temporal.loop noticas portal do btc
+ };
+ //fecha portal do btc
+
+
+ //abre portal do btc mineração
+function noticias_portalbtc_miner(){
+  temporal.loop(2100000,function(){
+     
+   //telegram.sendMessage(CHAT_ID, 'Noticias em : '+'\n'+ url3)
+   //guia do bitoin 2400000
+   
+   console.log('entrou na function portal btc miner'); 
+   request(url7, function(err,res,body){
+      
+      console.log('acessou a url noticias portalbtc miner, vai carregar o delay'); 
+    temporal.delay(1000,function(){   
+      console.log('carregado o delay noticias'); 
+     
+      //if(err) console.log('Erro: '+err);
+      let $ = cheerio.load(body);
+      
+      //abre primeiro bloco de noticias
+      $('.item-details').each(function(){
+       console.log('achou a classe noticias portalbtc miner bloco 1');       
+           var noticia1_portalbtc_miner = $(this).find('h3').text();
+           
+           if(noticia1_portalbtc_miner!=""){
+             console.log('noticia1 portalbtc miner: '+noticia1_portalbtc_miner)
+             telegram.sendMessage(CHAT_ID, 'Notícias portal do bitcoin mineração==>: '+noticia1_portalbtc_miner+'\n'+'Link da notícia: '+url7)
+           } 
+                    
+       }); 
+         //fecha primeiro bloco de noticia
+   
+         
+     console.log('processo noticias portal do btc miner finalizado')
+    })//fecha request
+ 
+   })//fecha temporal delay
+   //fecha noticias portal do btc
+ 
+  });//fecha temporal.loop noticas portal do btc
+ };
+ //fecha portal do btc
+
+
+ //abre portal do btc blockchain
+function noticias_portalbtc_block(){
+  temporal.loop(10000,function(){
+    //2100000 
+   //telegram.sendMessage(CHAT_ID, 'Noticias em : '+'\n'+ url3)
+   //guia do bitoin 2400000
+   
+   console.log('entrou na function portal btc miner'); 
+   request(url8, function(err,res,body){
+      
+      console.log('acessou a url noticias portalbtc blockchain, vai carregar o delay'); 
+    temporal.delay(1000,function(){   
+      console.log('carregado o delay noticias'); 
+     
+      //if(err) console.log('Erro: '+err);
+      let $ = cheerio.load(body);
+      
+      //abre primeiro bloco de noticias
+      $('.item-details').each(function(){
+       console.log('achou a classe noticias portalbtc blockchain bloco 1');       
+           var noticia1_portalbtc_block = $(this).find('h3').text();
+           
+           if(noticia1_portalbtc_block!=""){
+             console.log('noticia1 portalbtc blockchain: '+noticia1_portalbtc_block)
+             telegram.sendMessage(CHAT_ID, 'Notícias portal do bitcoin blockchain==>: '+noticia1_portalbtc_block+'\n'+'Link da notícia: '+url8)
+           } 
+                    
+       }); 
+         //fecha primeiro bloco de noticia
+   
+         
+     console.log('processo noticias portal do btc block finalizado')
+    })//fecha request
+ 
+   })//fecha temporal delay
+   //fecha noticias portal do btc
+ 
+  });//fecha temporal.loop noticas portal do btc block
+ };
+ //fecha portal do btc block
+
+
+  
+
+
+
 
   
 //fs.appendFile('C:\\Users\\tr642633\\Documents\\desenvolvimento\\node\\projeto\\btc.txt', coinlib +';'+'\n' + binance + ';'+'\n'+ zb + '; ' + '\n', function (err) {
