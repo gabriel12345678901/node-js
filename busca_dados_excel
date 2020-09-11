@@ -1,0 +1,43 @@
+var Excel = require('exceljs');
+var  file = 'PORTAL_GH.xlsm'
+var wb = new Excel.Workbook();
+var path = require('path');
+var filePath = path.resolve(__dirname,file);
+var answer;
+
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question('Digite a TR: ', (answer) => {
+  // TODO: Log the answer in a database
+  //console.log(`Thank you for your valuable feedback: ${answer}`);
+  wb.xlsx.readFile(filePath).then(()=>{
+
+    var sh = wb.getWorksheet("exportacaoHierarquia");
+
+ 
+    //Get all the rows data [1st and 2nd column]
+    for (i = 1; i <= sh.rowCount; i++) {
+        //console.log('no for: '+sh.getRow(i).getCell(3).value);
+
+        if(sh.getRow(i).getCell(3).value == answer){
+           
+           console.log('NOME: '+sh.getRow(i).getCell(2).value);
+           console.log('TR: '+sh.getRow(i).getCell(3).value);
+           console.log('ID: '+sh.getRow(i).getCell(10).value);
+           console.log('STATUS: '+sh.getRow(i).getCell(14).value);
+           console.log('CARGO: '+sh.getRow(i).getCell(16).value);
+           console.log('GA: '+sh.getRow(i).getCell(30).value);
+           console.log('GO: '+sh.getRow(i).getCell(35).value);
+        //console.log('for: '+i)
+        }
+    }
+});
+
+
+  rl.close();
+});
