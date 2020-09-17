@@ -1,0 +1,71 @@
+const request = require('request')
+const cheerio = require('cheerio')
+
+const url_fox = 'https://www.foxnews.com/us'
+const url_sputnick = 'https://sputniknews.com/'
+
+
+fox()
+sputnick()
+
+function fox(){
+  request(url_fox,(err,res,body)=>{
+    if(err){console.log('request error: '+err)}
+    const $ = cheerio.load(body);
+
+    
+     //var qtde = $('span').length
+     //var pos = $('span').eq(70).text()
+
+     //console.log('qtde: '+qtde)
+     //console.log('pos 1: '+pos)
+    
+    $('.dek').each(function(){
+        //console.log('entrou no for ')
+        var txt = $(this).find('a').text()
+        if(txt!=""){
+            console.log('news FOX: '+txt+'\n')
+
+        }
+        
+
+    })
+
+    $('.title').each(function(){
+        //console.log('entrou no for ')
+        var txt = $(this).find('a').text()
+        if(txt!=""){
+            console.log('news FOX rodapé : '+txt+'\n')
+
+        }
+        
+
+    })
+  
+
+  })
+
+}
+
+function sputnick(){
+    request(url_sputnick,(err,res,body)=>{
+        if(err){console.log('request error: '+err)}
+        const $ = cheerio.load(body);
+        console.log('entrou na cnn')
+               
+        
+        $('li').each(function(){
+            //console.log('entrou no for ')
+            var txt = $(this).find('a').text()
+            if(txt.length > 30){
+                console.log('news SPUTNICK: '+txt+'\n')
+    
+            }
+            
+    
+        })
+    
+    
+    })
+    
+}
