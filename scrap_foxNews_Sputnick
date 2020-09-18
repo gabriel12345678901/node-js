@@ -41,8 +41,8 @@ function fox(){
     request(url_fox,(err,res,body)=>{
     if(err){console.log('request error: '+err)}
     const $ = cheerio.load(body);
-
-    
+    var count_index = $('.dek').length
+    var count_foot = $('.title').length
     
     $('.dek').each(function(){
         //console.log('entrou no for ')
@@ -54,6 +54,7 @@ function fox(){
         
 
     })
+    console.log('TOTALY NEWS FOX INDEX: '+ count_index+'\n')
 
     $('.title').each(function(){
         //console.log('entrou no for ')
@@ -65,17 +66,15 @@ function fox(){
         
 
     })
+    console.log('TOTALY NEWS FOX INDEX_FOOT: '+ count_foot)+'\n'
   
-
   })
 
   //word
   request(url_fox_world,(err,res,body)=>{
     if(err){console.log('request error: '+err)}
     const $ = cheerio.load(body);
-
-    
-    
+    var count = $('.dek').length
     $('.dek').each(function(){
         //console.log('entrou no for ')
         var txt = $(this).find('a').text()
@@ -86,18 +85,15 @@ function fox(){
         
 
     })
-
-     
-
+    console.log('TOTALY NEWS FOX WORLD: '+ count+'\n')
+ 
   })
 
   //tech
   request(url_fox_tech,(err,res,body)=>{
     if(err){console.log('request error: '+err)}
     const $ = cheerio.load(body);
-
-    
-    
+    var count = $('.dek').length
     $('.dek').each(function(){
         //console.log('entrou no for ')
         var txt = $(this).find('a').text()
@@ -108,18 +104,15 @@ function fox(){
         
 
     })
-
-     
-
+    console.log('TOTALY NEWS FOX TECH: '+ count+'\n')
+ 
   })
 
   //conflict
   request(url_fox_conflict,(err,res,body)=>{
     if(err){console.log('request error: '+err)}
     const $ = cheerio.load(body);
-
-    
-    
+    var count = $('.dek').length
     $('.dek').each(function(){
         //console.log('entrou no for ')
         var txt = $(this).find('a').text()
@@ -130,8 +123,7 @@ function fox(){
         
 
     })
-
-     
+    console.log('TOTALY NEWS FOX CONFLICT: '+ count+'\n')
 
   })
 
@@ -256,4 +248,5 @@ function sputnick(){
     */
     
 }
+
 
