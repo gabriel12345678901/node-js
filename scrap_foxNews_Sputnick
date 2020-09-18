@@ -1,30 +1,54 @@
 const request = require('request')
 const cheerio = require('cheerio')
+const temporal = require('temporal')
 
 const url_fox = 'https://www.foxnews.com/us'
-const url_sputnick = 'https://sputniknews.com/'
+const url_fox_world= 'https://www.foxnews.com/world'
+const url_fox_tech= 'https://www.foxnews.com/category/tech/topics/security'
+const url_fox_conflict = 'https://www.foxnews.com/category/world/conflicts'
 
+const url_sputnick_defense = 'https://sputniknews.com/military/'
+const url_sputnick_business = 'https://sputniknews.com/business/'
+const url_sputnick_tech = 'https://sputniknews.com/science/'
+const url_sputnick_society = 'https://sputniknews.com/society/'
+const url_sputnick_world = 'https://sputniknews.com/world/'
 
+var count_world
+var count_business
+var count_defense
+var count_society
+var count_tech
+
+//geral_noticias()
+
+//sputnick()
 fox()
-sputnick()
+
+function geral_noticias(){
+    temporal.loop(120000,function(){
+     
+      temporal.delay(60000,function(){fox()})
+      temporal.delay(70000,function(){sputnick()})
+      
+      
+     });
+     
+   }
 
 function fox(){
-  request(url_fox,(err,res,body)=>{
+  
+    //index
+    request(url_fox,(err,res,body)=>{
     if(err){console.log('request error: '+err)}
     const $ = cheerio.load(body);
 
     
-     //var qtde = $('span').length
-     //var pos = $('span').eq(70).text()
-
-     //console.log('qtde: '+qtde)
-     //console.log('pos 1: '+pos)
     
     $('.dek').each(function(){
         //console.log('entrou no for ')
         var txt = $(this).find('a').text()
         if(txt!=""){
-            console.log('news FOX: '+txt+'\n')
+            console.log('news FOX INDEX: '+txt+'\n')
 
         }
         
@@ -35,7 +59,7 @@ function fox(){
         //console.log('entrou no for ')
         var txt = $(this).find('a').text()
         if(txt!=""){
-            console.log('news FOX rodapé : '+txt+'\n')
+            console.log('news FOX INDEX FOOT : '+txt+'\n')
 
         }
         
@@ -45,27 +69,191 @@ function fox(){
 
   })
 
+  //word
+  request(url_fox_world,(err,res,body)=>{
+    if(err){console.log('request error: '+err)}
+    const $ = cheerio.load(body);
+
+    
+    
+    $('.dek').each(function(){
+        //console.log('entrou no for ')
+        var txt = $(this).find('a').text()
+        if(txt!=""){
+            console.log('news FOX WORLD: '+txt+'\n')
+
+        }
+        
+
+    })
+
+     
+
+  })
+
+  //tech
+  request(url_fox_tech,(err,res,body)=>{
+    if(err){console.log('request error: '+err)}
+    const $ = cheerio.load(body);
+
+    
+    
+    $('.dek').each(function(){
+        //console.log('entrou no for ')
+        var txt = $(this).find('a').text()
+        if(txt!=""){
+            console.log('news FOX TECH: '+txt+'\n')
+
+        }
+        
+
+    })
+
+     
+
+  })
+
+  //conflict
+  request(url_fox_conflict,(err,res,body)=>{
+    if(err){console.log('request error: '+err)}
+    const $ = cheerio.load(body);
+
+    
+    
+    $('.dek').each(function(){
+        //console.log('entrou no for ')
+        var txt = $(this).find('a').text()
+        if(txt!=""){
+            console.log('news FOX CONFLICT: '+txt+'\n')
+
+        }
+        
+
+    })
+
+     
+
+  })
+
+
 }
 
 function sputnick(){
-    request(url_sputnick,(err,res,body)=>{
+    
+ 
+     //defense
+    request(url_sputnick_defense,(err,res,body)=>{
         if(err){console.log('request error: '+err)}
         const $ = cheerio.load(body);
-        console.log('entrou na cnn')
-               
-        
-        $('li').each(function(){
-            //console.log('entrou no for ')
-            var txt = $(this).find('a').text()
-            if(txt.length > 30){
-                console.log('news SPUTNICK: '+txt+'\n')
-    
-            }
-            
-    
-        })
-    
-    
+        count_defense = $('.b-stories__item').length
+        $('.b-stories__item').each(function(){
+                 
+                var noticias_sputnick_defesa = $(this).find('a').text();
+                
+                if(noticias_sputnick_defesa!=""){
+                  console.log('news SPUTNICK DEFENSE: '+noticias_sputnick_defesa+'\n')
+                  
+                } 
+                         
+            }); 
+            console.log('news SPUTNICK DEFENSE totaly news: '+count_defense+'\n')
+
+
     })
+
+
+    //business
+    request(url_sputnick_business,(err,res,body)=>{
+        if(err){console.log('request error: '+err)}
+        const $ = cheerio.load(body);
+        count_business = $('.b-stories__item').length
+        $('.b-stories__item').each(function(){
+                 
+                var noticias_sputnick_business = $(this).find('a').text();
+                
+                if(noticias_sputnick_business!=""){
+                  console.log('news SPUTNICK BUSINESS: '+noticias_sputnick_business+'\n')
+                  
+                } 
+                         
+            }); 
+            console.log('news SPUTNICK BUSINESS totaly news: '+count_business+'\n')
+
+
+    })
+
+    //tech
+    request(url_sputnick_tech,(err,res,body)=>{
+        if(err){console.log('request error: '+err)}
+        const $ = cheerio.load(body);
+        count_tech = $('.b-stories__item').length
+        $('.b-stories__item').each(function(){
+                 
+                var noticias_sputnick_tech = $(this).find('a').text();
+                
+                if(noticias_sputnick_tech!=""){
+                  console.log('news SPUTNICK TECH: '+noticias_sputnick_tech+'\n')
+                  
+                } 
+                         
+            }); 
+
+            console.log('news SPUTNICK TECH totaly news: '+count_tech+'\n')
+
+
+    })
+
+
+     //society
+     request(url_sputnick_society,(err,res,body)=>{
+        if(err){console.log('request error: '+err)}
+        const $ = cheerio.load(body);
+        count_society = $('.b-stories__item').length
+        $('.b-stories__item').each(function(){
+                 
+                var noticias_sputnick_society = $(this).find('a').text();
+                
+                if(noticias_sputnick_society!=""){
+                  console.log('news SPUTNICK SOCIETY: '+noticias_sputnick_society+'\n')
+                  
+                } 
+                         
+            }); 
+            console.log('news SPUTNICK SOCIETY totaly news: '+count_society+'\n')
+
+
+    })
+
+     //world
+     request(url_sputnick_world,(err,res,body)=>{
+        if(err){console.log('request error: '+err)}
+        const $ = cheerio.load(body);
+        count_world = $('.b-stories__item').length
+        $('.b-stories__item').each(function(){
+                 
+                var noticias_sputnick_world = $(this).find('a').text();
+                
+                if(noticias_sputnick_world!=""){
+                  console.log('news SPUTNICK WORLD: '+noticias_sputnick_world+'\n')
+                  
+                } 
+                         
+            }); 
+            console.log('news SPUTNICK WORLD totaly news: '+count_world+'\n')
+            
+
+
+    })
+    /*
+    temporal.delay(10000,function(){
+       var int_count_business = parseInt(count_business)
+       var int_count_defense = parseInt(count_defense)
+       var int_count_society =  parseInt(count_society)
+       var int_count_tech = parseInt(count_tech)
+       var int_count_world =  parseInt(count_world)
+        console.log('TOTALY NEWS GETTING: '+int_count_world+int_count_business+int_count_defense+int_count_society+int_count_tech)
+    })
+    */
     
 }
+
