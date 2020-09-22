@@ -1,0 +1,65 @@
+const readline = require('readline');
+
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+var id;
+var name;
+
+input();
+
+function input(){
+   
+    const r1 = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+
+    });
+
+   r1.question('Enter with ID:  ',(id) => {
+      r1.question('Enter with name: ',(name) => {
+        console.log('get values of question:'+id+' name: '+name)   
+       //bd(); 
+
+       //start mongo
+       MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("teste");
+        console.log('throw are this values: id: '+id+' name: '+name)
+        var myobj = { Identification: id, Name: name };
+        dbo.collection("clientes").insertOne(myobj, function(err, res) {
+           if (err) throw err;
+           console.log("1 document inserted");
+           db.close();
+        });
+       });
+       //fim mongo
+
+
+      });
+       
+   })
+
+}
+
+
+
+function bd(){
+//mongo
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("teste");
+  console.log('throw are this values: id:'+id+' name: '+name)
+  var myobj = { Identification: id, Name: name };
+  dbo.collection("clientes").insertOne(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+  });
+});
+}
+
+//fim CRUD
